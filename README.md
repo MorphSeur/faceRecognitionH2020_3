@@ -2,7 +2,7 @@
 ## [server.py](https://devecorridor.iit.cnr.it/gitlab/kmoulouel/facerecognition2/blob/master/server.py)
 The version of the IAI-skeleton is 1.1.  
 This version of face recognition analytic is without file encrytption.  
-For face recogntition analytic with encryption refers to [Face Recognition With Encryption](https://devecorridor.iit.cnr.it/gitlab/kmoulouel/facerecognition/blob/master/server.py)
+For face recogntition analytic with encryption refers to [Face Recognition With Encryption](https://devecorridor.iit.cnr.it/gitlab/kmoulouel/facerecognition)
 The face recognition library is integrated with the new trained models - lissilab.  
 [server.py](https://devecorridor.iit.cnr.it/gitlab/kmoulouel/facerecognition2/blob/master/server.py) performs real face recognition, saliency detection and face recognition.
 
