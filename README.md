@@ -14,7 +14,7 @@ To run an example:
     ```
 - Stop the analytic
     ```sh
-    $ python python iai_test_client.py --target http://0.0.0.0:5000 stop
+    $ python iai_test_client.py --target http://0.0.0.0:5000 stop
     ```
 
 ## Requirements
