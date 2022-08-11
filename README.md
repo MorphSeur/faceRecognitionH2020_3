@@ -1,4 +1,4 @@
-# Face Recognition - E-Corridor - H2020 - Without Encryption
+# Face Recognition - E-Corridor - H2020 - Without Encryption - DPO Decoding
 ## [server.py](https://devecorridor.iit.cnr.it/gitlab/kmoulouel/facerecognition2/blob/11082022/server.py)
 The version of the IAI-skeleton is 1.1.  
 This version of face recognition analytic is without file encryption.  
