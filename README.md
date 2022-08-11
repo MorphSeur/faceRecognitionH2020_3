@@ -27,7 +27,7 @@ To run an example:
 ## Requirements
 - Please refer to [requirements.txt](https://devecorridor.iit.cnr.it/gitlab/kmoulouel/facerecognition2/blob/11082022/requirements.txt).
 - Python 3.7.7 was used.  
-- Set path to .dpo json on lines 157 and 158 of [server.py](https://devecorridor.iit.cnr.it/gitlab/kmoulouel/facerecognition2/blob/11082022/server.py) (To decode the .dpo files).
+- Set path to .dpo json on lines [157](https://devecorridor.iit.cnr.it/gitlab/kmoulouel/facerecognition2/blob/11082022/server.py#L157) and [158](https://devecorridor.iit.cnr.it/gitlab/kmoulouel/facerecognition2/blob/11082022/server.py#L157) of [server.py](https://devecorridor.iit.cnr.it/gitlab/kmoulouel/facerecognition2/blob/11082022/server.py) (To decode the .dpo files).
 
 ## Dockerfile
 Dockerfile contains necessary libraries to face recognition analytic.
