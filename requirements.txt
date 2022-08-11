@@ -6,6 +6,5 @@ cryptography==35.0.0
 scipy==1.4.1
 imutils==0.5.4
 opencv-python
-dlib
 Pillow
 tqdm

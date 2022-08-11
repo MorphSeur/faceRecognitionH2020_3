@@ -44,6 +44,47 @@ def saliency(eye):
     ear = (A + B) / (2.0 * C)
     return ear
 
+def recognise(contentMP4AVI):
+  EYE_AR_THRESH = 0.20
+  EYE_AR_CONSEC_FRAMES = 1
+  COUNTER = 0
+  TOTAL = 0
+  
+  detector = dlib.get_frontal_face_detector()
+  predictor = dlib.shape_predictor('./lissilabmodels/models/spfl.dat')
+  
+  (lStart, lEnd) = face_utils.FACIAL_LANDMARKS_IDXS["left_eye"]
+  (rStart, rEnd) = face_utils.FACIAL_LANDMARKS_IDXS["right_eye"]
+  
+  time.sleep(1.0)
+
+  vs = cv2.VideoCapture(contentMP4AVI)
+  length = int(vs.get(cv2.CAP_PROP_FRAME_COUNT))
+      
+  for x in range(length):
+      ret, frame = vs.read()
+      frame = imutils.resize(frame, width=450)
+      gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+      rects = detector(gray, 0)
+
+      for rect in rects:
+          shape = predictor(gray, rect)
+          shape = face_utils.shape_to_np(shape)
+          leftEye = shape[lStart:lEnd]
+          rightEye = shape[rStart:rEnd]
+          leftEAR = saliency(leftEye)
+          rightEAR = saliency(rightEye)
+          ear = (leftEAR + rightEAR) / 2.0
+          if ear < EYE_AR_THRESH:
+              COUNTER += 1
+              realFrame = frame
+              break
+          else:
+              if COUNTER >= EYE_AR_CONSEC_FRAMES:
+                  TOTAL += 1
+              COUNTER = 0
+  return realFrame
+
 """
 Sample definition of Analytics for IAI integration.
 The class have to subclass AnalyticsAgent ones.
@@ -66,19 +107,6 @@ class SampleAnalytics(AnalyticsAgent):
 
     # do real analytics here
     
-    EYE_AR_THRESH = 0.20
-    EYE_AR_CONSEC_FRAMES = 1
-    COUNTER = 0
-    TOTAL = 0
-    
-    detector = dlib.get_frontal_face_detector()
-    predictor = dlib.shape_predictor('./lissilabmodels/models/spfl.dat')
-    
-    (lStart, lEnd) = face_utils.FACIAL_LANDMARKS_IDXS["left_eye"]
-    (rStart, rEnd) = face_utils.FACIAL_LANDMARKS_IDXS["right_eye"]
-    
-    time.sleep(1.0)
-    
     for infile in self.params.iai_files:
         app.logger.info("- Processing {}".format(infile))
         if infile[-4:] == ".png" or infile[-4:] == ".jpg":
@@ -93,45 +121,9 @@ class SampleAnalytics(AnalyticsAgent):
             app.logger.info('[dump input:{}]: {}'.format(infile, contentMP4AVI))
         time.sleep(2)
     
-    vs = cv2.VideoCapture(contentMP4AVI)
-    length = int(vs.get(cv2.CAP_PROP_FRAME_COUNT))
-        
-    for x in range(length):
-        ret, frame = vs.read()
-        frame = imutils.resize(frame, width=450)
-        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-        rects = detector(gray, 0)
+    if contentMP4AVI:
+      realFrame = recognise(contentMP4AVI)
 
-        for rect in rects:
-            shape = predictor(gray, rect)
-            shape = face_utils.shape_to_np(shape)
-            leftEye = shape[lStart:lEnd]
-            rightEye = shape[rStart:rEnd]
-            leftEAR = saliency(leftEye)
-            rightEAR = saliency(rightEye)
-            ear = (leftEAR + rightEAR) / 2.0
-            leftEyeHull = cv2.convexHull(leftEye)
-            rightEyeHull = cv2.convexHull(rightEye)
-            if ear < EYE_AR_THRESH:
-                COUNTER += 1
-                realFrame = frame
-                break
-            else:
-                if COUNTER >= EYE_AR_CONSEC_FRAMES:
-                    TOTAL += 1
-                COUNTER = 0
-
-    height, width, channels = realFrame.shape
-
-    y = 150
-    x = 220
-
-    top1 = int((height/2) - y)
-    left1 = int((width/2) - x)
-    bottom1 = int((height/2) + y)
-    right1 = int((width/2) + x)
-
-    im1 = realFrame[top1:bottom1, left1:right1]
     face_locations = lissilab.face_locations(realFrame)
 
     for face_location in face_locations:
@@ -234,7 +226,5 @@ def do_stop_analytics():
     app.logger.exception(e)
     return (jsonify({'error': 'Error occured'}), 500)
 
-
-
 if __name__ == '__main__':
-  app.run(host = '0.0.0.0', port = 5000, debug = DEBUG)
+  app.run(host = '0.0.0.0', port = 50000, debug = DEBUG)
