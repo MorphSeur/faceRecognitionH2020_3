@@ -15,7 +15,7 @@ To run an example:
     ```sh
     $ python iai_test_client.py --target http://0.0.0.0:50000 start --datalake ./tmp/testiai g.mp4 r.png
     ```
-- Querying the server when using RGB-D Camera (With [Real Face Extraction DMO](https://devecorridor.iit.cnr.it/gitlab/kmoulouel/realfaceextractiondmo), i.e., the server exploits a DMO image and a groundtruth image):
+- Querying the server when using RGB-D Camera (With [Real Face Extraction DMO](https://devecorridor.iit.cnr.it/gitlab/kmoulouel/realfaceextractiondmo), i.e., the server exploits the DMO image and a groundtruth image):
     ```sh
     $ python iai_test_client.py --target http://0.0.0.0:50000 start --datalake ./tmp/testiai r.png 7.png
     ```
