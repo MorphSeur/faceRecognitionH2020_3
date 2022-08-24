@@ -8,3 +8,4 @@ imutils==0.5.4
 opencv-python
 Pillow
 tqdm
+dlib

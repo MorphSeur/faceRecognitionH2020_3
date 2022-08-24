@@ -1,10 +1,10 @@
 # Face Recognition - E-Corridor - H2020 - Without Encryption - DPO Decoding
-## [server.py](https://devecorridor.iit.cnr.it/gitlab/kmoulouel/facerecognition2/blob/11082022/server.py)
+## [server.py](https://devecorridor.iit.cnr.it/gitlab/kmoulouel/facerecognition2/blob/24082022/server.py)
 The version of the IAI-skeleton is 1.1.  
 This version of face recognition analytic is without file encryption.  
 For face recogntition analytic with encryption refers to [Face Recognition With Encryption](https://devecorridor.iit.cnr.it/gitlab/kmoulouel/facerecognition).  
 The face recognition library is integrated with the new trained models - lissilab.  
-[server.py](https://devecorridor.iit.cnr.it/gitlab/kmoulouel/facerecognition2/blob/11082022/server.py) performs decoding of .dpo files, real face recognition, saliency detection and face recognition for both RGB and RGB-D cameras.
+[server.py](https://devecorridor.iit.cnr.it/gitlab/kmoulouel/facerecognition2/blob/24082022/server.py) performs decoding of .dpo files, real face recognition, saliency detection and face recognition for both RGB and RGB-D cameras.
 
 To run an example:
 - Start the analytic server:
@@ -25,22 +25,28 @@ To run an example:
     ```
 
 ## Requirements
-- Please refer to [requirements.txt](https://devecorridor.iit.cnr.it/gitlab/kmoulouel/facerecognition2/blob/11082022/requirements.txt).
+- Please refer to [requirements.txt](https://devecorridor.iit.cnr.it/gitlab/kmoulouel/facerecognition2/blob/24082022/requirements.txt).
 - Python 3.7.7 was used.  
-- Set path to .dpo json on lines [157](https://devecorridor.iit.cnr.it/gitlab/kmoulouel/facerecognition2/blob/11082022/server.py#L157) and [158](https://devecorridor.iit.cnr.it/gitlab/kmoulouel/facerecognition2/blob/11082022/server.py#L157) of [server.py](https://devecorridor.iit.cnr.it/gitlab/kmoulouel/facerecognition2/blob/11082022/server.py) (To decode the .dpo files).
+- Set path to .dpo json on lines [157](https://devecorridor.iit.cnr.it/gitlab/kmoulouel/facerecognition2/blob/24082022/server.py#L157) and [158](https://devecorridor.iit.cnr.it/gitlab/kmoulouel/facerecognition2/blob/24082022/server.py#L157) of [server.py](https://devecorridor.iit.cnr.it/gitlab/kmoulouel/facerecognition2/blob/24082022/server.py) (To decode the .dpo files).
 
 ## Dockerfile
 Dockerfile contains necessary libraries to face recognition analytic.
 - To build the docker
     ```
-    $ sudo docker build --tag face_recognition .
+    $ sudo docker build --tag face_recognition3 .
     ```
 - To run the analytic
     ```
-    $ sudo docker run --publish 50000:50000 --volume="/path/to/tmp/testiai/:/path/to/tmp/testiai/tmp/testiai/" -v $(pwd):/app face_recognition sh /app/docker-entrypoint.sh
+    $ sudo docker run --publish 50000:50000 --volume="/path/to/tmp/testiai/:/path/to/tmp/testiai/tmp/testiai/" -v $(pwd):/app face_recognition3 sh /app/docker-entrypoint.sh
     ```
 - To run the analytic with display
     ```
 	$ xhost local:face_recognition
 	$ sudo docker run -e DISPLAY=$DISPLAY --env="DISPLAY" -v /tmp/.X11-unix:/tmp/.X11-unix face_recognition
+    ```
+
+
+    
+    ```
+    $ sudo docker run --publish 50000:50000 --volume="/raid/home/labuseraber/environment/testEnvironment/faceRecognition11082022/facerecognition2/:/raid/home/labuseraber/environment/testEnvironment/faceRecognition11082022/facerecognition2/" -v $(pwd):/app face_recognition3 sh /app/docker-entrypoint.sh
     ```
