@@ -1,4 +1,4 @@
-Flask==1.1.2
+Flask
 requests==2.26.0
 jsonschema==3.2.0
 fernet==1.0.1
@@ -9,3 +9,4 @@ opencv-python
 Pillow
 tqdm
 dlib
+Jinja2

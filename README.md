@@ -37,16 +37,10 @@ Dockerfile contains necessary libraries to face recognition analytic.
     ```
 - To run the analytic
     ```
-    $ sudo docker run --publish 50000:50000 --volume="/path/to/tmp/testiai/:/path/to/tmp/testiai/tmp/testiai/" -v $(pwd):/app face_recognition3 sh /app/docker-entrypoint.sh
+    $ sudo docker run --publish 50000:50000 --volume="/path/to/tmp/testiai/:/path/to/tmp/testiai/" -v $(pwd):/app face_recognition3 sh /app/docker-entrypoint.sh
     ```
 - To run the analytic with display
     ```
 	$ xhost local:face_recognition
 	$ sudo docker run -e DISPLAY=$DISPLAY --env="DISPLAY" -v /tmp/.X11-unix:/tmp/.X11-unix face_recognition
-    ```
-
-
-    
-    ```
-    $ sudo docker run --publish 50000:50000 --volume="/raid/home/labuseraber/environment/testEnvironment/faceRecognition11082022/facerecognition2/:/raid/home/labuseraber/environment/testEnvironment/faceRecognition11082022/facerecognition2/" -v $(pwd):/app face_recognition3 sh /app/docker-entrypoint.sh
     ```
