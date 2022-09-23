@@ -78,124 +78,101 @@ def recognise(contentMP4AVI):
                 COUNTER = 0
     return realFrame
 
-def dpoDecodeTwo(pathToTmp, pathToJSON):
+def dpoDecodeTwo(dpoInfo, pathToTmp):
 
-    r = open(pathToJSON)
-    y = json.load(r)
-
-    ext1 = y[0]['iai_dpo_metadata'][0]['file:extension']
-    ext2 = y[0]['iai_dpo_metadata'][1]['file:extension']
+    ext1 = dpoInfo['iai_dpo_metadata'][0]['file:extension']
+    ext2 = dpoInfo['iai_dpo_metadata'][1]['file:extension']
 
     if ext1 == 'png' and ext2 == 'png':
-        imageName1 = y[0]['iai_dpo_metadata'][0]['id'] + '.dpo'
-        imageName2 = y[0]['iai_dpo_metadata'][1]['id'] + '.dpo'
+        imageName1 = dpoInfo['iai_dpo_metadata'][0]['id'] + '.dpo'
+        imageName2 = dpoInfo['iai_dpo_metadata'][1]['id'] + '.dpo'
 
-        statusPNG1 = os.system("base64 -d " + pathToTmp + imageName1 + "> " + pathToTmp + "r.png")
-        statusPNG2 = os.system("base64 -d " + pathToTmp + imageName2 + "> " + pathToTmp + "7.png")
+        statusPNG1 = os.system("base64 -d " + pathToTmp + '/' + imageName1 + "> " + pathToTmp + '/' + "r.png")
+        statusPNG2 = os.system("base64 -d " + pathToTmp + '/' + imageName2 + "> " + pathToTmp + '/' + "7.png")
     elif ext1 == 'jpg' and ext2 == 'jpg':
-        imageName1 = y[0]['iai_dpo_metadata'][0]['id'] + '.dpo'
-        imageName2 = y[0]['iai_dpo_metadata'][1]['id'] + '.dpo'
+        imageName1 = dpoInfo['iai_dpo_metadata'][0]['id'] + '.dpo'
+        imageName2 = dpoInfo['iai_dpo_metadata'][1]['id'] + '.dpo'
 
-        statusPNG1 = os.system("base64 -d " + pathToTmp + imageName1 + "> " + pathToTmp + "r.jpg")
-        statusPNG2 = os.system("base64 -d " + pathToTmp + imageName2 + "> " + pathToTmp + "7.jpg")
+        statusPNG1 = os.system("base64 -d " + pathToTmp + '/' + imageName1 + "> " + pathToTmp + '/' + "r.jpg")
+        statusPNG2 = os.system("base64 -d " + pathToTmp + '/' + imageName2 + "> " + pathToTmp + '/' + "7.jpg")
     else:
         if ext1 == 'mp4' or ext2 == 'mp4':
-            videoName1 = y[0]['iai_dpo_metadata'][0]['id'] + '.dpo'
-            videoName2 = y[0]['iai_dpo_metadata'][1]['id'] + '.dpo'
+            videoName1 = dpoInfo['iai_dpo_metadata'][0]['id'] + '.dpo'
+            videoName2 = dpoInfo['iai_dpo_metadata'][1]['id'] + '.dpo'
 
             if 'mp4' in ext1:
                 videoName = videoName1
             elif 'mp4' in ext2:
                 videoName = videoName2
-            statusMP4 = os.system("base64 -d " + pathToTmp + videoName + "> " + pathToTmp + "g.mp4")
+            statusMP4 = os.system("base64 -d " + pathToTmp + '/' + videoName + "> " + pathToTmp + '/' + "g.mp4")
 
         if ext1 == 'png' or ext2 == 'png':
-            imageName1 = y[0]['iai_dpo_metadata'][0]['id'] + '.dpo'
-            imageName2 = y[0]['iai_dpo_metadata'][1]['id'] + '.dpo'
+            imageName1 = dpoInfo['iai_dpo_metadata'][0]['id'] + '.dpo'
+            imageName2 = dpoInfo['iai_dpo_metadata'][1]['id'] + '.dpo'
 
             if 'png' in ext1:
                 imageName = imageName1
             elif 'png' in ext2:
                 imageName = imageName2
 
-            statusPNG = os.system("base64 -d " + pathToTmp + imageName + "> " + pathToTmp + "r.png")
+            statusPNG = os.system("base64 -d " + pathToTmp + '/' + imageName + "> " + pathToTmp + '/' + "r.png")
 
         if ext1 == 'jpg' or ext2 == 'jpg':
-            imageName1 = y[0]['iai_dpo_metadata'][0]['id'] + '.dpo'
-            imageName2 = y[0]['iai_dpo_metadata'][1]['id'] + '.dpo'
+            imageName1 = dpoInfo['iai_dpo_metadata'][0]['id'] + '.dpo'
+            imageName2 = dpoInfo['iai_dpo_metadata'][1]['id'] + '.dpo'
 
             if 'jpg' in ext1:
                 imageName = imageName1
             elif 'jpg' in ext2:
                 imageName = imageName2
 
-            statusJPG = os.system("base64 -d " + pathToTmp + imageName + "> " + pathToTmp + "f.jpg")
+            statusJPG = os.system("base64 -d " + pathToTmp + '/' + imageName + "> " + pathToTmp + '/' + "f.jpg")
 
         if ext1 == 'bag' or ext2 == 'bag':
-            bagName1 = y[0]['iai_dpo_metadata'][0]['id'] + '.dpo'
-            bagName2 = y[0]['iai_dpo_metadata'][1]['id'] + '.dpo'
+            bagName1 = dpoInfo['iai_dpo_metadata'][0]['id'] + '.dpo'
+            bagName2 = dpoInfo['iai_dpo_metadata'][1]['id'] + '.dpo'
 
             if 'bag' in ext1:
                 bagName = bagName1
             elif 'bag' in ext2:
                 bagName = bagName2
 
-            statusBAG = os.system("base64 -d " + pathToTmp + bagName + "> " + pathToTmp + "a.bag")
+            statusBAG = os.system("base64 -d " + pathToTmp + '/' + bagName + "> " + pathToTmp + '/' + "a.bag")
 
 class SampleAnalytics(AnalyticsAgent):
     def run(self):
         app.logger.info('--- run() started!')
-        # Hints:
-        # - self.params.iai_files will contains input files to process
-        # - self.read_input('dopid') will read input file from datalake
-        # - self.write_output('filename', 'content') will write content to datalake
 
-        # do real analytics here
-        
-        currentPath = os.getcwd()
-        pathToTmp   = currentPath + '/tmp/testiai/'
-        pathToJSON = pathToTmp + 'faceRecognitionDPO.json'
-        pathToJSON2 = pathToTmp + 'faceRecognitionDPO2.json'
+        dpoInfo = request.json
+        dpoInfo = json.loads(json.dumps(dpoInfo))
+        pathToTmp = dpoInfo['iai_datalake']
+
+        dpoDecodeTwo(dpoInfo, pathToTmp)
 
         time.sleep(3)
 
-        if self.params.iai_files[0][-4:] == ".jpg" and self.params.iai_files[1][-4:] == ".png" or \
-           self.params.iai_files[0][-4:] == ".jpg" and self.params.iai_files[1][-4:] == ".png" or \
-           self.params.iai_files[0][-4:] == ".png" and self.params.iai_files[1][-4:] == ".png" or \
-           self.params.iai_files[0][-4:] == ".jpg" and self.params.iai_files[1][-4:] == ".jpg":
-            content1 = self.params.iai_files[0]
-            content2 = self.params.iai_files[1]
+        fileList = []
+        fileListExt = []
+        fileListJPGPNG = []
 
-            dpoDecodeTwo(pathToTmp, pathToJSON2)
+        for element in os.listdir(pathToTmp):
+            file = os.path.join(pathToTmp, element)
+            if os.path.isfile(file):
+                fileList.append(file)
+                fileListExt.append(file[-4:])
 
-            kous_image = lissilab.load_image_file(pathToTmp + content1)
-            kous_face_encoding = lissilab.face_encodings(kous_image)[0]
+        counting = {i:fileListExt.count(i) for i in fileListExt}
 
-            test_image = lissilab.load_image_file(pathToTmp + content2)
-            test_face_encoding = lissilab.face_encodings(test_image)[0]
-            
-            plaintext_output = lissilab.compare_faces([kous_face_encoding], test_face_encoding)
+        if ".mp4" in fileListExt:
+            if counting[".mp4"]:
+                for fileElement in fileList:
+                    if fileElement[-4:] == '.png' or fileElement[-4:] == '.jpg':
+                        contentPNGJPG = fileElement
+                        app.logger.info('[dump input:{}]: {}'.format(fileElement, contentPNGJPG))
+                    elif fileElement[-4:] == '.mp4' or fileElement[-4:] == '.avi':
+                        contentMP4AVI = fileElement
+                        app.logger.info('[dump input:{}]: {}'.format(fileElement, contentMP4AVI))
 
-        else:
-            for infile in self.params.iai_files:
-                
-                dpoDecodeTwo(pathToTmp, pathToJSON)
-                
-                app.logger.info('- Processing {}'.format(infile))
-                if infile[-4:] == '.png' or infile[-4:] == '.jpg':
-                    # contentPNGJPG = self.read_input(infile)
-                    contentPNGJPG = os.getcwd()
-                    contentPNGJPG = contentPNGJPG + '/tmp/testiai/' + infile
-                    app.logger.info('[dump input:{}]: {}'.format(infile, contentPNGJPG))
-                elif infile[-4:] == '.mp4' or infile[-4:] == '.avi':
-                    # contentMP4AVI = self.read_input(infile)
-                    contentMP4AVI = os.getcwd()
-                    contentMP4AVI = contentMP4AVI + '/tmp/testiai/' + infile
-                    app.logger.info('[dump input:{}]: {}'.format(infile, contentMP4AVI))
-
-                time.sleep(2)
-
-            if contentMP4AVI:
                 realFrame = recognise(contentMP4AVI)
 
                 face_locations = lissilab.face_locations(realFrame)
@@ -217,8 +194,27 @@ class SampleAnalytics(AnalyticsAgent):
 
                     plaintext_output = lissilab.compare_faces([kous_face_encoding], test_face_encoding)
                     break
-            else:
-                print("There is an issue in the uploaded video")
+
+        else:
+            for fileElement in fileList:
+                if fileElement[-4:] == '.png':
+                    fileListJPGPNG.append(fileElement)
+                elif fileElement[-4:] == '.jpg':
+                    fileListJPGPNG.append(fileElement)
+
+            content1 = fileListJPGPNG[0]
+            app.logger.info('[dump input:{}]: {}'.format(fileElement, content1))
+
+            content2 = fileListJPGPNG[1]
+            app.logger.info('[dump input:{}]: {}'.format(fileElement, content2))
+
+            kous_image = lissilab.load_image_file(content1)
+            kous_face_encoding = lissilab.face_encodings(kous_image)[0]
+
+            test_image = lissilab.load_image_file(content2)
+            test_face_encoding = lissilab.face_encodings(test_image)[0]
+            
+            plaintext_output = lissilab.compare_faces([kous_face_encoding], test_face_encoding)
 
         # Because write_output will manage byte streams we need to convert string to
         # bytes content
