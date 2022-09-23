@@ -1,8 +1,8 @@
 # Face Recognition - E-Corridor - H2020 - Without Encryption - DPO Decoding
-## [server.py](https://devecorridor.iit.cnr.it/gitlab/kmoulouel/facerecognition2/blob/24082022/server.py)
+## [server.py](https://devecorridor.iit.cnr.it/gitlab/kmoulouel/facerecognition2/blob/23092022/server.py)
 The version of the [IAI-skeleton is 1.4.1](https://devecorridor.iit.cnr.it/gitlab/dalbanese/iai-skeleton/-/tree/v1.4.1).    
 The face recognition library is integrated with the new trained models - lissilab.  
-[server.py](https://devecorridor.iit.cnr.it/gitlab/kmoulouel/facerecognition2/blob/24082022/server.py) performs decoding of .dpo files, real face recognition, saliency detection and face recognition for both RGB and RGB-D cameras.
+[server.py](https://devecorridor.iit.cnr.it/gitlab/kmoulouel/facerecognition2/blob/23092022/server.py) performs decoding of .dpo files, real face recognition, saliency detection and face recognition for both RGB and RGB-D cameras.
 
 To run an example:
 - Start the analytic server:
