@@ -1,0 +1,21 @@
+version: "3.7"
+
+services:
+  # Spring Swagger Template
+  face_recognition:
+    expose:
+      - "5000"
+    environment:
+      # Expose service to the Internet
+      VIRTUAL_HOST: "${VIRTUAL_HOST:-ecorridor.iit.cnr.it}"
+      VIRTUAL_PATH: "/face_recognition/"
+      VIRTUAL_DEST: "/"
+      VIRTUAL_PORT: "5000" # this is not mandatory, if we have the "expose" directive
+    image: devecorridor.iit.cnr.it:5000/ecorridor/iai/analytics/face_recognition5:latest
+    networks:
+      - ecorridor.local
+    restart: unless-stopped
+
+networks:
+  ecorridor.local:
+    name: ecorridor.local
