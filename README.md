@@ -30,7 +30,7 @@ Dockerfile contains necessary libraries to face recognition analytic.
     ```
 - To run the analytic
     ```
-    $ sudo docker run --publish 5001:5001 --volume="/path/to/tmp/testiai/:/app/" -v $(pwd):/app face_recognition sh docker-entrypoint.sh
+    $ sudo docker run --publish 5001:5001 --volume="/path/to/tmp/testiai/:/app/" face_recognition sh docker-entrypoint.sh
     ```
 - To run the analytic with display
     ```
