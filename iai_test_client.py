@@ -28,7 +28,7 @@ from cryptography.fernet import Fernet
 
 request_body = {
        "session_id":"32f6fd1e-3b51-41e5-863a-c42ff0c0675f",
-       "iai_datalake":"/raid/home/labuseraber/environment/testEnvironment/faceRecognition11082022/facerecognition2/tmp/testiai",
+       "iai_datalake":"./tmp/testiai",
        "iai_datacipher":"base64",
        "iai_datakey":None,
        "iai_files":[

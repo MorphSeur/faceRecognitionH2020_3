@@ -97,10 +97,14 @@ class SampleAnalytics(AnalyticsAgent):
             test_face_encoding = lissilab.face_encodings(test_image)[0]
             
             plaintext_output = lissilab.compare_faces([kous_face_encoding], test_face_encoding)
+
+            local_time = time.localtime()
+            currentTime = time.strftime('%a, %d %b %Y %H:%M:%S', local_time)
         
         dictionary = {
             "passengerID": "pdgID001",
-            "recognized": str(plaintext_output[0])
+            "recognized": str(plaintext_output[0]),
+            "time": currentTime
         }
 
         # Because write_output will manage byte streams we need to convert string to
