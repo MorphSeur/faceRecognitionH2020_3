@@ -29,6 +29,11 @@ class SampleAnalytics(AnalyticsAgent):
         dpoInfo = json.loads(json.dumps(dpoInfo))
         pathToTmp = dpoInfo['iai_datalake']
 
+        print("\neeeeeeeeeeeeeeeeeeeeeeeeeeee")
+        print(dpoInfo)
+        print("eeeeeeeeeeeeeeeeeeeeeeeeeeee\n")
+        app.logger.info(dpoInfo)
+
         dpoDecodeTwo(dpoInfo, pathToTmp)
 
         time.sleep(3)

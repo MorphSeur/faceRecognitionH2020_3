@@ -3,8 +3,6 @@
 FROM python:3.7-slim-buster
 LABEL maintainer="koussaila.moulouel@u-pe.fr"
 
-COPY * /app/
-
 WORKDIR /app/
 
 ENV PYTHONUNBUFFERED=1 PYTHONHASHSEED=random PYTHONDONTWRITEBYTECODE=1
@@ -23,6 +21,8 @@ CMD xeyes
 
 RUN apt-get -y install xauth
 
+COPY . /app/
+
 # Default port
 EXPOSE 5000
 
@@ -31,6 +31,8 @@ COPY requirements.txt requirements.txt
 RUN pip install --upgrade pip
 
 RUN pip install -r requirements.txt
+
+RUN pip install -v --install-option="--no" --install-option="DLIB_USE_CUDA" dlib
 
 RUN apt-get update
 

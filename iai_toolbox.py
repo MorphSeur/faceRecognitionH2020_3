@@ -151,7 +151,7 @@ class AnalyticsAgent(object):
         return f.decrypt(fin.read())
     elif self.params.iai_datacipher == 'base64':
       with open(path, 'rb') as fin:
-        return base64.b64decode(fin.read())
+        return fin.read()
 
     raise NotImplementedError("Reading crypted files is not implemented yet")
 
