@@ -112,7 +112,7 @@ class AnalyticsAgent(object):
     payload = {
       'success': success,
       'value': value,
-      'resuls': resuls
+      'results': resuls
     }
     if not self.params.on_finish_url:
       Log.error('[WARNING] No on_finish_url provided in request (payload={})'.format(payload))
