@@ -32,7 +32,8 @@ RUN pip install --upgrade pip
 
 RUN pip install -r requirements.txt
 
-RUN pip install -v --install-option="--no" --install-option="DLIB_USE_CUDA" dlib
+# RUN pip install -v --install-option="--no" --install-option="DLIB_USE_CUDA" dlib
+RUN pip install -v --install-option="--use-cuda" dlib
 
 RUN apt-get update
 
