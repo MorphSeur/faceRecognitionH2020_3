@@ -28,10 +28,6 @@ class SampleAnalytics(AnalyticsAgent):
         dpoInfo = request.json
         dpoInfo = json.loads(json.dumps(dpoInfo))
         pathToTmp = dpoInfo['iai_datalake']
-
-        print("\neeeeeeeeeeeeeeeeeeeeeeeeeeee")
-        print(dpoInfo)
-        print("eeeeeeeeeeeeeeeeeeeeeeeeeeee\n")
         app.logger.info(dpoInfo)
 
         dpoDecodeTwo(dpoInfo, pathToTmp)
@@ -115,13 +111,16 @@ class SampleAnalytics(AnalyticsAgent):
         # Because write_output will manage byte streams we need to convert string to
         # bytes content
         plaintext_output = str(dictionary).encode('utf-8', 'ignore')
+
+        print("\nOutput: ", plaintext_output, "\n")
+
         # plaintext_output = "The ID of the recognized person is ".encode('utf-8','ignore') + plaintext_output + " - server".encode('utf-8','ignore')
         self.write_output('faceRecognitionOutputFile', plaintext_output)
         app.logger.info('--- run() ended!')
         # when analytics finished do callback to server
         success = True
         value = 'Face recognition analytic finished with success!!!'
-        results = [dictionary]
+        results = 'faceRecognitionOutputFile'
         self.on_finish(success, value, results)
 
     def end(self):
