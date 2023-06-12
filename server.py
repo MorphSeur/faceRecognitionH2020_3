@@ -113,6 +113,7 @@ class SampleAnalytics(AnalyticsAgent):
         plaintext_output = str(dictionary).encode('utf-8', 'ignore')
 
         print("\nOutput: ", plaintext_output, "\n")
+        print("\nOutput: ", "Hi Giuseppe", "\n")
 
         # plaintext_output = "The ID of the recognized person is ".encode('utf-8','ignore') + plaintext_output + " - server".encode('utf-8','ignore')
         self.write_output('faceRecognitionOutputFile', plaintext_output)
