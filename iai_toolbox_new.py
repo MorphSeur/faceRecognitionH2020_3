@@ -46,7 +46,6 @@ class AnalyticsRequest(object):
   iai_params = None
   iai_files = []
   on_finish_url = None
-  iai_dpo_metadata = []
 
   SCHEMA = {
     "type": "object",
@@ -56,12 +55,11 @@ class AnalyticsRequest(object):
       "iai_datacipher": {"type": ["string", "null"]},
       "iai_datakey": {"type": ["string", "null"]},
       "iai_files": {"type": "array", "items": {"type": "string"}},
-      "on_finish_url": {"type": ["string", "null"]},
       "iai_params": {"type": ["object", "null"]},
-      "iai_dpo_metadata": {"type": "array", "items": {"type": "object"}}
+      "on_finish_url": {"type": ["string", "null"]},
     },
     "required": [ "session_id", "iai_datalake", "iai_datacipher", "iai_datakey",
-                  "iai_files", "on_finish_url", "iai_dpo_metadata"]
+                  "iai_files", "on_finish_url"]
   }
 
   def from_params(payload):
@@ -69,12 +67,12 @@ class AnalyticsRequest(object):
 
     ar.session_id = payload['session_id']
     ar.iai_datalake = payload['iai_datalake']
-    ar.iai_datacipher = payload['iai_datacipher'] # Data cipher used to decrypt data or None when no encryption
+    # Data cipher used to decrypt data or None when no encryption
+    ar.iai_datacipher = payload['iai_datacipher']
     ar.iai_datakey = payload['iai_datakey']
     ar.iai_files = payload['iai_files']
-    ar.on_finish_url = payload['on_finish_url']
     ar.iai_params = getattr(payload, 'iai_params', None)
-    ar.iai_dpo_metadata = payload['iai_dpo_metadata']
+    ar.on_finish_url = payload['on_finish_url']
 
     return ar
 
@@ -108,11 +106,11 @@ class AnalyticsAgent(object):
     finally:
       self.p.terminate()
 
-  def on_finish(self, success, value, results):
+  def on_finish(self, success, value, resuls):
     payload = {
       'success': success,
       'value': value,
-      'results': results
+      'resuls': resuls
     }
     if not self.params.on_finish_url:
       Log.error('[WARNING] No on_finish_url provided in request (payload={})'.format(payload))
@@ -154,6 +152,7 @@ class AnalyticsAgent(object):
         return fin.read()
 
     raise NotImplementedError("Reading crypted files is not implemented yet")
+
 
   def write_output(self, name, plaintext_content):
     """

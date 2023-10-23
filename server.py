@@ -110,7 +110,9 @@ class SampleAnalytics(AnalyticsAgent):
 
         # Because write_output will manage byte streams we need to convert string to
         # bytes content
-        plaintext_output = str(dictionary).encode('utf-8', 'ignore')
+        # plaintext_output = str(dictionary).encode('utf-8', 'ignore')
+
+        plaintext_output = bytes(str(dictionary), 'utf-8')
 
         print("\nOutput: ", plaintext_output, "\n")
         print("\nOutput: ", "Hi Giuseppe", "\n")
